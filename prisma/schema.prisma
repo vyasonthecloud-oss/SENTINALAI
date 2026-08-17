@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String    @id @default(uuid())
+  name                 String
+  email                String    @unique
+  password             String
+  role                 String    @default("USER") // USER, ADMIN
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+  orders               Order[]
+  reviews              Review[]
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([email])
+  @@index([resetPasswordToken])
+}
+
+model Product {
+  id                String      @id @default(uuid())
+  shopifyId         String      @unique
+  title             String
+  handle            String      @unique
+  descriptionHtml   String
+  vendor            String
+  productType       String
+  tags              String
+  price             Float
+  compareAtPrice    Float?
+  sku               String?
+  image             String
+  images            String      @default("[]") // JSON string array of image URLs
+  stockQuantity     Int         @default(0)
+  lowStockThreshold Int         @default(5)
+  isActive          Boolean     @default(true)
+  orderItems        OrderItem[]
+  reviews           Review[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([sku])
+  @@index([handle])
+  @@index([isActive])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int      // 1 to 5
+  title     String
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, userId])
+  @@index([productId])
+  @@index([userId])
+}
+
+model Order {
+  id                String        @id @default(uuid())
+  userId            String?
+  user              User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  customerName      String
+  customerEmail     String
+  customerPhone     String?
+  subtotal          Float         @default(0)
+  shippingAmount    Float         @default(0)
+  discountAmount    Float         @default(0)
+  totalAmount       Float         @default(0)
+  paymentStatus     String        @default("PENDING") // PENDING, PAID, FAILED, REFUNDED
+  orderStatus       String        @default("PENDING") // PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+  razorpayOrderId   String?       @unique
+  razorpayPaymentId String?       @unique
+  razorpaySignature String?
+  shippingAddress   String?
+  paidAt            DateTime?
+  shippedAt         DateTime?
+  deliveredAt       DateTime?
+  cancelledAt       DateTime?
+  items             OrderItem[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([orderStatus])
+  @@index([paymentStatus])
+  @@index([customerEmail])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id          String   @id @default(uuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String   @default("")
+  sku         String?
+  price       Float    @default(0)
+  quantity    Int      @default(1)
+  subtotal    Float    @default(0)
+
+  @@index([orderId])
+  @@index([productId])
+}
