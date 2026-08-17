@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { Product } from '@prisma/client';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ProductCard } from '@/components/ui/ProductCard';
@@ -41,15 +42,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const categoryKey = category.toLowerCase();
   const keywords = categoryMap[categoryKey] || [categoryKey.toUpperCase()];
 
-  const products = await prisma.product.findMany({
-    where: {
-      isActive: true,
-      OR: keywords.map(kw => ({
-        productType: { contains: kw }
-      }))
-    },
-    orderBy: { createdAt: 'desc' }
-  });
+  let products: Product[] = [];
+  try {
+    products = await prisma.product.findMany({
+      where: {
+        isActive: true,
+        OR: keywords.map(kw => ({
+          productType: { contains: kw }
+        }))
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch (error) {
+    console.warn(`Could not fetch products for category ${category} during build:`, error instanceof Error ? error.message : error);
+  }
 
   const displayTitle = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1).replace(/-/g, ' ');
 

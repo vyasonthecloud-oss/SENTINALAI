@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { Product } from '@prisma/client';
 import { HeroSection } from '@/components/ui/HeroSection';
 import { FeaturesSection } from '@/components/ui/FeaturesSection';
 import { PopularCategories } from '@/components/ui/PopularCategories';
@@ -8,11 +9,16 @@ import FUIBentoGridDark from '@/components/ui/bento';
 export const revalidate = 3600;
 
 export default async function Home() {
-  const products = await prisma.product.findMany({
-    where: { isActive: true },
-    take: 10,
-    orderBy: { createdAt: 'desc' }
-  });
+  let products: Product[] = [];
+  try {
+    products = await prisma.product.findMany({
+      where: { isActive: true },
+      take: 10,
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch (error) {
+    console.warn('Could not fetch products during home page build:', error instanceof Error ? error.message : error);
+  }
 
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">

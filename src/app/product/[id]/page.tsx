@@ -13,9 +13,14 @@ const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://sentinalai.com';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
-  const product = await prisma.product.findUnique({
-    where: { id: resolvedParams.id }
-  });
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { id: resolvedParams.id }
+    });
+  } catch {
+    product = null;
+  }
 
   if (!product) {
     return { 
@@ -64,19 +69,24 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
-  const product = await prisma.product.findUnique({
-    where: { id: resolvedParams.id },
-    include: {
-      reviews: {
-        include: {
-          user: {
-            select: { name: true },
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { id: resolvedParams.id },
+      include: {
+        reviews: {
+          include: {
+            user: {
+              select: { name: true },
+            },
           },
+          orderBy: { createdAt: 'desc' },
         },
-        orderBy: { createdAt: 'desc' },
       },
-    },
-  });
+    });
+  } catch {
+    product = null;
+  }
 
   if (!product) {
     return notFound();

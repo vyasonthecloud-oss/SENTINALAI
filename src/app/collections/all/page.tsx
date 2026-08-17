@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { Product } from '@prisma/client';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,10 +13,15 @@ export const metadata: Metadata = {
 };
 
 export default async function CollectionsAllPage() {
-  const products = await prisma.product.findMany({
-    where: { isActive: true },
-    orderBy: { createdAt: 'desc' }
-  });
+  let products: Product[] = [];
+  try {
+    products = await prisma.product.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch (error) {
+    console.warn('Could not fetch products during page build:', error instanceof Error ? error.message : error);
+  }
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
