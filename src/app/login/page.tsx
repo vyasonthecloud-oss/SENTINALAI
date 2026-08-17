@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight, Mail, Lock, ShieldCheck, UserCheck } from 'lucide-react';
+import { ArrowRight, Mail, Lock } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 
 function LoginForm() {
@@ -51,27 +51,6 @@ function LoginForm() {
       window.location.href = targetDestination;
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Invalid email address or password');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleAdminQuickLogin = async () => {
-    setIsLoading(true);
-    setError('');
-    try {
-      const res = await fetch('/api/auth/demo-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'admin@sentinalai.com', name: 'Sentinal Admin', asAdmin: true }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Admin authentication failed');
-
-      login(data.user.name, data.user.email, data.user.id, data.user.role);
-      window.location.href = '/admin';
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Admin login failed');
     } finally {
       setIsLoading(false);
     }
@@ -159,18 +138,7 @@ function LoginForm() {
         </div>
 
         <div className="mt-6 space-y-3">
-          {/* Quick Sign In as Admin Option */}
-          <button 
-            type="button" 
-            onClick={handleAdminQuickLogin}
-            disabled={isLoading}
-            className="w-full bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2.5 shadow-xs cursor-pointer"
-          >
-            <ShieldCheck className="w-5 h-5" />
-            <span>Sign In to Admin Portal</span>
-          </button>
-
-          {/* Google Login Simulation */}
+          {/* Google Sign In */}
           <button 
             type="button" 
             onClick={handleGoogleLogin}
@@ -194,12 +162,6 @@ function LoginForm() {
           Sign up now
         </Link>
       </p>
-
-      <div className="mt-8 pt-6 border-t border-border flex justify-center">
-        <Link href="/admin" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
-          <UserCheck className="w-4 h-4 text-primary" /> Direct Link to Admin Console
-        </Link>
-      </div>
     </div>
   );
 }
