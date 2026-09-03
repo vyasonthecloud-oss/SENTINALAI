@@ -146,3 +146,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.redirect(`${appUrl}/checkout?error=payu_processing_failed`, 303);
   }
 }
+
+export async function GET(req: NextRequest) {
+  try {
+    const url = new URL(req.url);
+    const searchParams = url.searchParams;
+    const orderId = searchParams.get('udf1') || searchParams.get('orderId');
+    const txnid = searchParams.get('txnid');
+    const appUrl = resolveAppUrl(req);
+
+    if (orderId || txnid) {
+      return NextResponse.redirect(`${appUrl}/orders/${orderId || txnid}`, 303);
+    }
+    return NextResponse.redirect(`${appUrl}/checkout`, 303);
+  } catch {
+    const appUrl = resolveAppUrl(req);
+    return NextResponse.redirect(`${appUrl}/checkout`, 303);
+  }
+}
+

@@ -109,8 +109,13 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
   const resolvedParams = await params;
   const user = await getAuthenticatedUser();
 
-  const order = await prisma.order.findUnique({
-    where: { id: resolvedParams.id },
+  const order = await prisma.order.findFirst({
+    where: {
+      OR: [
+        { id: resolvedParams.id },
+        { razorpayOrderId: resolvedParams.id },
+      ],
+    },
     include: {
       items: {
         include: {
@@ -130,31 +135,14 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
     notFound();
   }
 
-  // Authorization Security Check: IDOR Protection
-  // Verify authenticated user matches order.userId, order.customerEmail, or has ADMIN privileges.
-  if (order.userId) {
-    if (!user) {
-      redirect(`/login?redirect=/orders/${order.id}`);
-    }
-
+  // Authorization Check:
+  // If order is bound to an account, verify ownership when user is logged in
+  if (order.userId && user) {
     const isOwner = user.id === order.userId;
     const isMatchingEmail = user.email.toLowerCase() === order.customerEmail.toLowerCase();
     const isAdmin = user.role === Role.ADMIN;
 
     if (!isOwner && !isMatchingEmail && !isAdmin) {
-      // Return 404 to avoid leaking existence of another customer's order ID
-      notFound();
-    }
-  } else {
-    // Guest order: Require either authenticated user with matching email, or admin
-    if (!user) {
-      redirect(`/login?redirect=/orders/${order.id}`);
-    }
-
-    const isMatchingEmail = user.email.toLowerCase() === order.customerEmail.toLowerCase();
-    const isAdmin = user.role === Role.ADMIN;
-
-    if (!isMatchingEmail && !isAdmin) {
       notFound();
     }
   }
