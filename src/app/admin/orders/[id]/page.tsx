@@ -26,7 +26,7 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   return {
-    title: `Admin Order #${resolvedParams.id.substring(0, 8)} | Sentinal AI`,
+    title: `Admin Order #${resolvedParams.id.substring(0, 8)} | Sentinel AI`,
     description: 'Admin order management, customer verification, and logistics fulfillment.',
   };
 }

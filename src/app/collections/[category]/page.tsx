@@ -9,16 +9,16 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
   const displayTitle = category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ');
-  const canonicalUrl = `https://sentinalai.com/collections/${encodeURIComponent(category)}`;
+  const canonicalUrl = `https://sentinelai.com/collections/${encodeURIComponent(category)}`;
 
   return {
-    title: `${displayTitle} Components & Hardware | Sentinal AI`,
+    title: `${displayTitle} Components & Hardware | Sentinel AI`,
     description: `Shop high-performance ${displayTitle.toLowerCase()}, sensor kits, evaluation modules, and robotic hardware with express delivery across India.`,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${displayTitle} Components & Hardware | Sentinal AI`,
+      title: `${displayTitle} Components & Hardware | Sentinel AI`,
       description: `Shop high-performance ${displayTitle.toLowerCase()} with express delivery across India.`,
       url: canonicalUrl,
       type: 'website',

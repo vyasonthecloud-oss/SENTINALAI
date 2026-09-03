@@ -12,10 +12,10 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
   const q = resolvedParams.q ? resolvedParams.q.trim() : '';
 
   return {
-    title: q ? `Search results for "${q}" | Sentinal AI` : 'Search Electronic Hardware & Components | Sentinal AI',
+    title: q ? `Search results for "${q}" | Sentinel AI` : 'Search Electronic Hardware & Components | Sentinel AI',
     description: 'Search through thousands of high-quality microcontrollers, sensors, drone hardware, motors, and robotics modules with fast shipping in India.',
     alternates: {
-      canonical: 'https://sentinalai.com/search',
+      canonical: 'https://sentinelai.com/search',
     },
   };
 }

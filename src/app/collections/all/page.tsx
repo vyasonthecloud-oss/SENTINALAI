@@ -5,10 +5,10 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'All Electronic Components & Modules | Sentinal AI',
-  description: 'Explore the complete Sentinal AI catalog of microcontrollers, calibrated sensors, motor drivers, edge AI modules, and robotics power systems in India.',
+  title: 'All Electronic Components & Modules | Sentinel AI',
+  description: 'Explore the complete Sentinel AI catalog of microcontrollers, calibrated sensors, motor drivers, edge AI modules, and robotics power systems in India.',
   alternates: {
-    canonical: 'https://sentinalai.com/collections/all',
+    canonical: 'https://sentinelai.com/collections/all',
   },
 };
 

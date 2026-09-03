@@ -12,7 +12,7 @@ export function HeroSection() {
         <div className="flex flex-col items-start text-left relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-mono tracking-widest uppercase text-primary bg-primary/10 rounded-full mb-8 border border-primary/20 backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.3)]">
             <Cpu className="w-4 h-4" />
-            <span>Sentinal AI Infrastructure</span>
+            <span>Sentinel AI Infrastructure</span>
           </div>
           
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 max-w-4xl text-foreground leading-[1.1]">
@@ -49,7 +49,7 @@ export function HeroSection() {
                 <div className="w-3 h-3 rounded-full bg-accent/80"></div>
                 <div className="w-3 h-3 rounded-full bg-primary/80"></div>
                 <div className="ml-4 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                  node-sys-01.sentinal
+                  node-sys-01.sentinel
                 </div>
               </div>
 

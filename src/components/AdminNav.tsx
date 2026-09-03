@@ -21,7 +21,7 @@ export function AdminNav() {
             Admin <span className="text-gradient">Console</span>
           </h1>
           <p className="text-xs text-muted-foreground font-mono">
-            Sentinal AI Management & Logistics
+            Sentinel AI Management & Logistics
           </p>
         </div>
       </div>

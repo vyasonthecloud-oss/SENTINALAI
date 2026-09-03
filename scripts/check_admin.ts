@@ -14,7 +14,7 @@ async function main() {
   let admin = await prisma.user.findFirst({
     where: {
       OR: [
-        { email: 'admin@sentinalai.com' },
+        { email: 'admin@sentinelai.com' },
         { role: 'ADMIN' }
       ]
     }
@@ -24,13 +24,13 @@ async function main() {
     const hashedPassword = await bcrypt.hash('admin123', 10);
     admin = await prisma.user.create({
       data: {
-        name: 'Sentinal Admin',
-        email: 'admin@sentinalai.com',
+        name: 'Sentinel Admin',
+        email: 'admin@sentinelai.com',
         password: hashedPassword,
         role: 'ADMIN',
       }
     });
-    console.log('Created default admin: admin@sentinalai.com / admin123');
+    console.log('Created default admin: admin@sentinelai.com / admin123');
   } else {
     console.log('Admin account found:', admin.email, 'Role:', admin.role);
   }

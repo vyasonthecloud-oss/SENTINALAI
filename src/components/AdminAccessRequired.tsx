@@ -20,7 +20,7 @@ export function AdminAccessRequired({ currentEmail }: AdminAccessRequiredProps) 
           <p className="text-sm text-muted-foreground leading-relaxed">
             {currentEmail 
               ? `You are currently logged in as ${currentEmail} (Customer Account). Admin privileges are required to access this portal.`
-              : 'This area is restricted to authorized Sentinal AI Administrators only.'}
+              : 'This area is restricted to authorized Sentinel AI Administrators only.'}
           </p>
         </div>
 

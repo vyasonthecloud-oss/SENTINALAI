@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Invalidate any existing session cookie
-    response.cookies.set('sentinal_session', '', {
+    response.cookies.set('sentinel_session', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

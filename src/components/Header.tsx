@@ -65,7 +65,7 @@ export default function Header() {
             <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-primary group-hover:scale-110 transition-transform" />
           </div>
           <span className="font-black text-lg sm:text-xl tracking-tight uppercase text-foreground group-hover:text-primary transition-colors">
-            Sentinal AI
+            Sentinel AI
           </span>
         </Link>
 

@@ -1,7 +1,7 @@
 import { Order, OrderItem } from '@prisma/client';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM || 'Sentinal AI <orders@sentinalai.com>';
+const EMAIL_FROM = process.env.EMAIL_FROM || 'Sentinel AI <orders@sentinelai.com>';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export interface SendEmailOptions {
@@ -28,7 +28,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions): Promis
 
     if (isTestMode) {
       // Safe development/test console simulation
-      console.log(`\n================== [SENTINAL AI EMAIL MOCK] ==================`);
+      console.log(`\n================== [SENTINEL AI EMAIL MOCK] ==================`);
       console.log(`To: ${to}`);
       console.log(`From: ${EMAIL_FROM}`);
       console.log(`Subject: ${subject}`);
@@ -66,7 +66,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions): Promis
 }
 
 /**
- * Email wrapper styled with Sentinal AI dark glassmorphism aesthetic.
+ * Email wrapper styled with Sentinel AI dark glassmorphism aesthetic.
  */
 function wrapEmailTemplate(title: string, contentHtml: string): string {
   return `
@@ -156,18 +156,18 @@ function wrapEmailTemplate(title: string, contentHtml: string): string {
 <body>
   <div class="container">
     <div class="header">
-      <div class="brand">SENTINAL AI</div>
+      <div class="brand">SENTINEL AI</div>
       <div class="tagline">Industrial Electronic Hardware & Components</div>
     </div>
     <div class="content">
       ${contentHtml}
     </div>
     <div class="footer">
-      <p style="margin: 0 0 8px 0;">Sentinal AI Hardware Logistics • Bangalore, India</p>
-      <p style="margin: 0;">This is an automated transactional notification. If you have questions, please reach out to support@sentinalai.com.</p>
+      <p style="margin: 0 0 8px 0;">SENTINEL AI • Alappuzha, Kerala, India</p>
+      <p style="margin: 0;">This is an automated transactional notification. If you have questions, please reach out to sentinelaicore@gmail.com.</p>
     </div>
   </div>
-</body>
+ </body>
 </html>
   `;
 }
@@ -262,7 +262,7 @@ export async function sendOrderConfirmationEmail(order: OrderWithItems) {
 
   return await sendEmail({
     to: order.customerEmail,
-    subject: `Order Confirmation #${order.id.substring(0, 8)} - Sentinal AI`,
+    subject: `Order Confirmation #${order.id.substring(0, 8)} - Sentinel AI`,
     html,
   });
 }
@@ -315,7 +315,7 @@ export async function sendOrderShippedEmail(order: Order) {
 
   return await sendEmail({
     to: order.customerEmail,
-    subject: `Order Shipped #${order.id.substring(0, 8)} - Sentinal AI`,
+    subject: `Order Shipped #${order.id.substring(0, 8)} - Sentinel AI`,
     html,
   });
 }
@@ -335,7 +335,7 @@ export async function sendOrderDeliveredEmail(order: Order) {
         </span>
         <h2 style="font-size: 22px; font-weight: 800; margin: 16px 0 6px 0; color: #ffffff;">Your Package Has Arrived!</h2>
         <p style="font-size: 13px; color: #a1a1aa; margin: 0;">
-          Hi <strong>${order.customerName}</strong>, your Sentinal AI component package has been successfully delivered.
+          Hi <strong>${order.customerName}</strong>, your Sentinel AI component package has been successfully delivered.
         </p>
       </div>
 
@@ -362,7 +362,7 @@ export async function sendOrderDeliveredEmail(order: Order) {
 
   return await sendEmail({
     to: order.customerEmail,
-    subject: `Delivered: Order #${order.id.substring(0, 8)} - Sentinal AI`,
+    subject: `Delivered: Order #${order.id.substring(0, 8)} - Sentinel AI`,
     html,
   });
 }
@@ -380,7 +380,7 @@ export async function sendPasswordResetEmail({
   resetLink: string;
 }) {
   const html = wrapEmailTemplate(
-    'Reset Your Password | Sentinal AI',
+    'Reset Your Password | Sentinel AI',
     `
       <div style="text-align: center; margin-bottom: 24px;">
         <span style="background-color: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 50px;">
@@ -388,7 +388,7 @@ export async function sendPasswordResetEmail({
         </span>
         <h2 style="font-size: 22px; font-weight: 800; margin: 16px 0 6px 0; color: #ffffff;">Password Reset Request</h2>
         <p style="font-size: 13px; color: #a1a1aa; margin: 0;">
-          Hi <strong>${name}</strong>, we received a request to reset the password for your Sentinal AI account.
+          Hi <strong>${name}</strong>, we received a request to reset the password for your Sentinel AI account.
         </p>
       </div>
 
@@ -408,7 +408,7 @@ export async function sendPasswordResetEmail({
 
   return await sendEmail({
     to,
-    subject: 'Password Reset Request - Sentinal AI',
+    subject: 'Password Reset Request - Sentinel AI',
     html,
   });
 }

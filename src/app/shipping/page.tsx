@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Truck, Clock, RefreshCw, AlertCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Shipping & Returns Policy | Sentinal AI Store',
+  title: 'Shipping & Returns Policy | Sentinel AI Store',
   description: 'Nationwide shipping timelines across India, order tracking, and 7-day defective component warranty policy.',
 };
 

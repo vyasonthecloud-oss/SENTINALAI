@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
             Reset Password
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            Enter the email address associated with your Sentinal AI account. We&apos;ll send you a secure link to reset your password.
+            Enter the email address associated with your Sentinel AI account. We&apos;ll send you a secure link to reset your password.
           </p>
         </div>
 

@@ -5,11 +5,16 @@ export default function Footer() {
     <footer className="bg-card border-t border-border text-foreground pt-12 pb-8 mt-16 font-sans">
       <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h3 className="text-xl font-bold mb-4 tracking-tight">Sentinal AI.</h3>
+          <h3 className="text-xl font-bold mb-4 tracking-tight">Sentinel AI.</h3>
           <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
             Shop quality electronic components online in India for DIY, embedded, and robotics projects.
           </p>
-          <p className="tech-label text-muted-foreground mt-4">Support: +91 86066 50999</p>
+          <p className="tech-label text-muted-foreground mt-4">
+            Support: <a href="tel:+917356386390" className="hover:text-primary transition-colors">+91 73563 86390</a> / <a href="tel:+919292615463" className="hover:text-primary transition-colors">+91 92926 15463</a>
+          </p>
+          <p className="tech-label text-muted-foreground mt-1">
+            Email: <a href="mailto:sentinelaicore@gmail.com" className="hover:text-primary transition-colors">sentinelaicore@gmail.com</a>
+          </p>
         </div>
         
         <div>
@@ -41,7 +46,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-[1400px] mx-auto px-4 mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="tech-label text-muted-foreground">&copy; {new Date().getFullYear()} Sentinal AI. All Rights Reserved.</p>
+        <p className="tech-label text-muted-foreground">&copy; {new Date().getFullYear()} Sentinel AI. All Rights Reserved.</p>
         <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold uppercase tracking-wider">
           v1.0.0 • Production Release
         </span>

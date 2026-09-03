@@ -6,10 +6,10 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartSidebar } from "@/components/CartSidebar";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://sentinalai.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://sentinelai.com'),
   title: {
-    template: '%s | Sentinal AI',
-    default: 'Sentinal AI Store | Premium Electronic Components',
+    template: '%s | Sentinel AI',
+    default: 'Sentinel AI Store | Premium Electronic Components',
   },
   description: 'Shop the best electronic components online in India for DIY, embedded systems, and robotics projects. High quality, fast delivery.',
   icons: {
@@ -21,19 +21,19 @@ export const metadata: Metadata = {
     apple: '/favicon.png',
   },
   keywords: ['electronics', 'robotics', 'arduino', 'raspberry pi', 'sensors', 'india', 'diy electronics'],
-  authors: [{ name: 'Sentinal AI Team' }],
-  creator: 'Sentinal AI',
+  authors: [{ name: 'Sentinel AI Team' }],
+  creator: 'Sentinel AI',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://sentinalai.com',
-    title: 'Sentinal AI Store | Premium Electronic Components',
+    url: 'https://sentinelai.com',
+    title: 'Sentinel AI Store | Premium Electronic Components',
     description: 'Shop the best electronic components online in India for DIY, embedded systems, and robotics projects.',
-    siteName: 'Sentinal AI',
+    siteName: 'Sentinel AI',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sentinal AI Store | Premium Electronic Components',
+    title: 'Sentinel AI Store | Premium Electronic Components',
     description: 'Shop the best electronic components online in India for DIY, embedded systems, and robotics projects.',
   },
 };

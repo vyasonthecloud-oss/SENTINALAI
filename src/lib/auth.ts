@@ -3,12 +3,12 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from './prisma';
 
-export const SESSION_COOKIE_NAME = 'sentinal_session';
+export const SESSION_COOKIE_NAME = 'sentinel_session';
 
 function getSessionSecret(): string {
   const secret = process.env.SESSION_SECRET || process.env.AUTH_SECRET;
   if (secret) return secret;
-  return 'sentinal_ai_secure_default_session_key_production_grade_987654321';
+  return 'sentinel_ai_secure_default_session_key_production_grade_987654321';
 }
 
 export interface SessionPayload {

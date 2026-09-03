@@ -34,7 +34,7 @@ export const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: 'sentinal-ai-auth',
+      name: 'sentinel-ai-auth',
     }
   )
 );

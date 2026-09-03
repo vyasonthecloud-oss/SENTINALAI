@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions | Sentinal AI Store',
+  title: 'Frequently Asked Questions | Sentinel AI Store',
   description: 'Find answers to common questions about electronic components, Razorpay payment methods, shipping, and datasheets.',
 };
 

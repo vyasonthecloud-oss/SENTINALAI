@@ -106,7 +106,7 @@ export default function CheckoutPage() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_dummy_key', // Replace with your public key if you have one
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'Sentinal AI',
+        name: 'Sentinel AI',
         description: 'Electronic Components Purchase',
         order_id: orderData.id,
         handler: async function (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) {

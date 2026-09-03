@@ -23,7 +23,7 @@ import { PaymentStatus, OrderStatus } from '@/types/database';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Admin Orders Dashboard | Sentinal AI',
+  title: 'Admin Orders Dashboard | Sentinel AI',
   description: 'Manage e-commerce orders, delivery fulfillment workflows, and customer transactions.',
 };
 

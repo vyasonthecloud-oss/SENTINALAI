@@ -22,7 +22,7 @@ import { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'My Orders | Sentinal AI',
+  title: 'My Orders | Sentinel AI',
   description: 'Track and view your past orders, delivery timeline, and electronic component purchases.',
 };
 

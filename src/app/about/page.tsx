@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { Shield, Cpu, Zap, Box } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us | Sentinal AI Store',
-  description: 'Learn about Sentinal AI and our mission to provide the best electronic components.',
+  title: 'About Us | Sentinel AI Store',
+  description: 'Learn about Sentinel AI and our mission to provide the best electronic components.',
 };
 
 export default function AboutPage() {
@@ -15,10 +15,10 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-6">
-            About <span className="text-primary">Sentinal AI</span>
+            About <span className="text-primary">Sentinel AI</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            We are builders, engineers, and creators. Sentinal AI was founded to bridge the gap between high-end industrial robotics and accessible DIY electronics.
+            We are builders, engineers, and creators. Sentinel AI was founded to bridge the gap between high-end industrial robotics and accessible DIY electronics.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function AboutPage() {
         <div className="glass p-10 rounded-3xl border border-border/50">
           <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            To empower the next generation of engineers in India and beyond by providing reliable, affordable, and cutting-edge electronic components. Whether you&apos;re building a simple Arduino robot or a complex autonomous drone, Sentinal AI is your trusted partner.
+            To empower the next generation of engineers in India and beyond by providing reliable, affordable, and cutting-edge electronic components. Whether you&apos;re building a simple Arduino robot or a complex autonomous drone, Sentinel AI is your trusted partner.
           </p>
         </div>
       </div>

@@ -12,7 +12,7 @@ import { AdminAccessRequired } from '@/components/AdminAccessRequired';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Edit Product | Sentinal AI Admin',
+  title: 'Edit Product | Sentinel AI Admin',
 };
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {

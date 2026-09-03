@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions | Sentinal AI Store',
-  description: 'Terms and conditions for using the Sentinal AI platform.',
+  title: 'Terms & Conditions | Sentinel AI Store',
+  description: 'Terms and conditions for using the Sentinel AI platform.',
 };
 
 export default function TermsPage() {
@@ -20,7 +20,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">1. Introduction</h2>
             <p className="leading-relaxed">
-              Welcome to Sentinal AI. By accessing our website and purchasing our electronic components, you agree to be bound by these Terms and Conditions. Please read them carefully.
+              Welcome to Sentinel AI. By accessing our website and purchasing our electronic components, you agree to be bound by these Terms and Conditions. Please read them carefully.
             </p>
           </section>
 
@@ -47,7 +47,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">4. Liability</h2>
             <p className="leading-relaxed">
-              Sentinal AI is not liable for any direct, indirect, or consequential damages arising from the use of our electronic components. Engineering and robotics involve inherent risks, and it is the user&apos;s responsibility to handle components safely and within their specified ratings.
+              Sentinel AI is not liable for any direct, indirect, or consequential damages arising from the use of our electronic components. Engineering and robotics involve inherent risks, and it is the user&apos;s responsibility to handle components safely and within their specified ratings.
             </p>
           </section>
 
@@ -60,7 +60,7 @@ export default function TermsPage() {
 
           <div className="pt-8 border-t border-border/50">
             <p className="text-sm">
-              If you have any questions about these Terms, please contact us at <a href="/contact" className="text-primary hover:underline">support@sentinalai.com</a>.
+              If you have any questions about these Terms, please contact us at <a href="mailto:sentinelaicore@gmail.com" className="text-primary hover:underline">sentinelaicore@gmail.com</a>.
             </p>
           </div>
         </div>

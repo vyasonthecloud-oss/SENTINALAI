@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ShieldCheck, Lock, Eye, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Sentinal AI Store',
-  description: 'Privacy policy and data protection commitment for Sentinal AI users in India.',
+  title: 'Privacy Policy | Sentinel AI Store',
+  description: 'Privacy policy and data protection commitment for Sentinel AI users in India.',
 };
 
 export default function PrivacyPage() {
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
               <Lock className="w-6 h-6 text-primary" /> 1. Commitment to Privacy
             </h2>
             <p className="leading-relaxed text-muted-foreground">
-              Sentinal AI (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) values your privacy. We collect only the minimum necessary information required to process component orders, deliver packages across India, and provide technical assistance.
+              Sentinel AI (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) values your privacy. We collect only the minimum necessary information required to process component orders, deliver packages across India, and provide technical assistance.
             </p>
           </section>
 
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
           </section>
 
           <div className="pt-8 border-t border-border/60 text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>For privacy inquiries, contact <a href="mailto:privacy@sentinalai.com" className="text-primary hover:underline font-semibold">privacy@sentinalai.com</a>.</p>
+            <p>For privacy inquiries, contact <a href="mailto:sentinelaicore@gmail.com" className="text-primary hover:underline font-semibold">sentinelaicore@gmail.com</a>.</p>
             <Link href="/terms" className="text-primary hover:underline font-semibold">View Terms of Service &rarr;</Link>
           </div>
         </div>

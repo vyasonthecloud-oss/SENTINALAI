@@ -73,7 +73,7 @@ function SignUpForm() {
           </div>
         </Link>
         <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2 font-heading">Create an Account</h1>
-        <p className="text-muted-foreground">Join Sentinal AI to track orders and save details.</p>
+        <p className="text-muted-foreground">Join Sentinel AI to track orders and save details.</p>
       </div>
 
       {/* Signup Card */}

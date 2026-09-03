@@ -82,7 +82,7 @@ export const useCartStore = create<CartStore>()(
       closeCart: () => set({ isOpen: false }),
     }),
     {
-      name: 'sentinal-ai-cart',
+      name: 'sentinel-ai-cart',
       partialize: (state) => ({ items: state.items }), // don't persist isOpen
     }
   )

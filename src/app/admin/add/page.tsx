@@ -12,7 +12,7 @@ import { AdminAccessRequired } from '@/components/AdminAccessRequired';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Add Product | Sentinal AI Admin',
+  title: 'Add Product | Sentinel AI Admin',
 };
 
 export default async function AddProductPage() {
@@ -53,7 +53,7 @@ export default async function AddProductPage() {
           descriptionHtml: descriptionHtml || '',
           handle,
           shopifyId,
-          vendor: 'Sentinal AI',
+          vendor: 'Sentinel AI',
           productType: 'Custom',
           tags: '',
           stockQuantity: isNaN(stockQuantity) ? 0 : stockQuantity,

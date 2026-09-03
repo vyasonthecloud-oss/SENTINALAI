@@ -11,7 +11,7 @@ import { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Admin Products Management | Sentinal AI',
+  title: 'Admin Products Management | Sentinel AI',
   description: 'Manage hardware catalog, inventory stock levels, and product availability.',
 };
 

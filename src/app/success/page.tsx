@@ -7,7 +7,7 @@ export default function SuccessPage() {
       <h1 className="text-4xl font-bold text-gray-800 mb-4">Payment Successful!</h1>
       <p className="text-lg text-gray-600 mb-8">
         Thank you for your purchase. Your order has been placed and is being processed. 
-        (This is a simulated confirmation screen for Sentinal AI).
+        (This is a simulated confirmation screen for Sentinel AI).
       </p>
       <Link href="/" className="bg-[#1d88e4] hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition shadow">
         Continue Shopping

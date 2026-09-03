@@ -70,7 +70,7 @@ function LoginForm() {
           </div>
         </Link>
         <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2 font-heading">Welcome Back</h1>
-        <p className="text-muted-foreground">Sign in to continue to Sentinal AI.</p>
+        <p className="text-muted-foreground">Sign in to continue to Sentinel AI.</p>
       </div>
 
       {/* Login Card */}

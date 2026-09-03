@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Sentinal AI Store',
-  description: 'Get in touch with the Sentinal AI team for support or inquiries.',
+  title: 'Contact Us | Sentinel AI Store',
+  description: 'Get in touch with the Sentinel AI team for support or inquiries.',
 };
 
 export default function ContactPage() {
@@ -31,7 +31,10 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-lg mb-1">Phone Support</h3>
                 <p className="text-muted-foreground text-sm mb-2">Mon-Fri, 9am to 6pm IST</p>
-                <p className="font-bold text-foreground">+91 86066 50999</p>
+                <div className="space-y-1">
+                  <a href="tel:+917356386390" className="block font-bold text-foreground hover:text-primary transition-colors">+91 73563 86390</a>
+                  <a href="tel:+919292615463" className="block font-bold text-foreground hover:text-primary transition-colors">+91 92926 15463</a>
+                </div>
               </div>
             </div>
 
@@ -42,7 +45,9 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-lg mb-1">Email Us</h3>
                 <p className="text-muted-foreground text-sm mb-2">We typically reply within 24 hours.</p>
-                <p className="font-bold text-foreground">support@sentinalai.com</p>
+                <a href="mailto:sentinelaicore@gmail.com" className="font-bold text-foreground hover:text-primary transition-colors">
+                  sentinelaicore@gmail.com
+                </a>
               </div>
             </div>
 
@@ -53,9 +58,10 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-lg mb-1">Headquarters</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Tech Park, Block B<br />
-                  Electronic City, Phase 1<br />
-                  Bengaluru, Karnataka 560100<br />
+                  <span className="font-semibold text-foreground">SENTINEL AI</span><br />
+                  Unniyamthara, Pallathuruthi<br />
+                  Pazhavedu PO, Pazhavedu<br />
+                  Alappuzha - 688009, Kerala<br />
                   India
                 </p>
               </div>

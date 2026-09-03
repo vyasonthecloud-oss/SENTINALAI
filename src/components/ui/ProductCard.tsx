@@ -40,7 +40,7 @@ export function ProductCard({ product }: { product: Product }) {
       
       <div className="p-3.5 sm:p-6 flex flex-col flex-1 border-t border-border/50 relative z-10 bg-card/50 backdrop-blur-sm">
         <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-          <p className="tech-label text-primary/80 text-[10px] sm:text-xs">Sentinal AI</p>
+          <p className="tech-label text-primary/80 text-[10px] sm:text-xs">Sentinel AI</p>
           <span className={`text-[10px] font-mono font-semibold ${
             isOutOfStock 
               ? 'text-rose-500' 

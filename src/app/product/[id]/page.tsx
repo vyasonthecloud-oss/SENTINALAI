@@ -9,7 +9,7 @@ import { ProductReviewsSection } from '@/components/product/ProductReviewsSectio
 import { getAuthenticatedUser } from '@/lib/auth';
 import { sanitizeHtml } from '@/lib/sanitizeHtml';
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://sentinalai.com';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://sentinelai.com';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!product) {
     return { 
-      title: 'Product Not Found | Sentinal AI',
+      title: 'Product Not Found | Sentinel AI',
       description: 'The requested electronic component could not be found.',
     };
   }
@@ -37,16 +37,16 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const imageUrl = product.image ? (product.image.startsWith('http') ? product.image : `${APP_URL}${product.image}`) : `${APP_URL}/icon.png`;
 
   return {
-    title: `${product.title} | Sentinal AI Store`,
+    title: `${product.title} | Sentinel AI Store`,
     description: plainDescription,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${product.title} | Sentinal AI`,
+      title: `${product.title} | Sentinel AI`,
       description: plainDescription,
       url: canonicalUrl,
-      siteName: 'Sentinal AI Store',
+      siteName: 'Sentinel AI Store',
       images: [
         {
           url: imageUrl,
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.title} | Sentinal AI`,
+      title: `${product.title} | Sentinel AI`,
       description: plainDescription,
       images: [imageUrl],
     },
@@ -134,7 +134,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     sku: product.sku || product.id,
     brand: {
       '@type': 'Brand',
-      name: product.vendor || 'Sentinal AI',
+      name: product.vendor || 'Sentinel AI',
     },
     offers: {
       '@type': 'Offer',
@@ -145,7 +145,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       availability: !isOutOfStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       seller: {
         '@type': 'Organization',
-        name: 'Sentinal AI',
+        name: 'Sentinel AI',
       },
     },
     ...(averageRatingNum ? {
@@ -224,7 +224,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </h1>
           
           <div className="text-muted-foreground mb-6 flex space-x-6 text-xs sm:text-sm">
-            <span>Vendor: <span className="font-semibold text-primary">{product.vendor || 'Sentinal AI'}</span></span>
+            <span>Vendor: <span className="font-semibold text-primary">{product.vendor || 'Sentinel AI'}</span></span>
             {product.sku && <span>SKU: <span className="font-semibold text-foreground font-mono">{product.sku}</span></span>}
           </div>
 

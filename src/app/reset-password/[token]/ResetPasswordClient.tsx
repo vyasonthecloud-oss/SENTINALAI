@@ -63,7 +63,7 @@ export function ResetPasswordClient({ token }: { token: string }) {
           Set New Password
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground">
-          Create a strong password for your Sentinal AI account.
+          Create a strong password for your Sentinel AI account.
         </p>
       </div>
 
