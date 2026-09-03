@@ -20,7 +20,7 @@ export function ProductCard({ product }: { product: Product }) {
         
         {/* Badges container */}
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 z-10">
-          {product.compareAtPrice && product.compareAtPrice > product.price && !isOutOfStock && (
+          {Boolean(product.compareAtPrice && product.compareAtPrice > product.price && !isOutOfStock) && (
             <div className="bg-accent/90 backdrop-blur-md text-accent-foreground text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded uppercase tracking-widest font-mono shadow-md">
               Sale
             </div>
@@ -59,8 +59,8 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="flex flex-col gap-1 mt-auto pt-2 sm:pt-4 border-t border-border/50 font-mono">
           <div className="flex items-baseline gap-2 sm:gap-3">
             <span className="font-bold text-base sm:text-xl text-foreground">₹{product.price.toFixed(0)}</span>
-            {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="text-xs sm:text-sm text-muted-foreground line-through decoration-destructive/50">₹{product.compareAtPrice.toFixed(0)}</span>
+            {Boolean(product.compareAtPrice && product.compareAtPrice > product.price) && (
+              <span className="text-xs sm:text-sm text-muted-foreground line-through decoration-destructive/50">₹{product.compareAtPrice?.toFixed(0)}</span>
             )}
           </div>
         </div>

@@ -163,7 +163,7 @@ function wrapEmailTemplate(title: string, contentHtml: string): string {
       ${contentHtml}
     </div>
     <div class="footer">
-      <p style="margin: 0 0 8px 0;">SENTINEL AI • Alappuzha, Kerala, India</p>
+      <p style="margin: 0 0 8px 0;">SentinelAI Solutions Pvt Ltd • Alappuzha, Kerala, India</p>
       <p style="margin: 0;">This is an automated transactional notification. If you have questions, please reach out to sentinelaicore@gmail.com.</p>
     </div>
   </div>

@@ -58,7 +58,7 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-lg mb-1">Headquarters</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  <span className="font-semibold text-foreground">SENTINEL AI</span><br />
+                  <span className="font-semibold text-foreground">SentinelAI Solutions Pvt Ltd</span><br />
                   Unniyamthara, Pallathuruthi<br />
                   Pazhavedu PO, Pazhavedu<br />
                   Alappuzha - 688009, Kerala<br />

@@ -231,8 +231,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div className="mb-8 p-4 rounded-2xl bg-muted/30 border border-border/50">
             <div className="flex items-baseline gap-3">
               <span className="text-3xl sm:text-4xl font-bold text-primary font-heading">₹{product.price.toFixed(2)}</span>
-              {product.compareAtPrice && product.compareAtPrice > product.price && (
-                <span className="text-lg text-muted-foreground line-through">₹{product.compareAtPrice.toFixed(2)}</span>
+              {Boolean(product.compareAtPrice && product.compareAtPrice > product.price) && (
+                <span className="text-lg text-muted-foreground line-through">₹{product.compareAtPrice?.toFixed(2)}</span>
               )}
             </div>
             <div className="text-xs text-muted-foreground mt-2 font-mono">Tax included. Free express shipping on orders over ₹999.</div>

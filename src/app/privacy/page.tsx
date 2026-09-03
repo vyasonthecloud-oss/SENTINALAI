@@ -28,7 +28,7 @@ export default function PrivacyPage() {
               <Lock className="w-6 h-6 text-primary" /> 1. Commitment to Privacy
             </h2>
             <p className="leading-relaxed text-muted-foreground">
-              Sentinel AI (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) values your privacy. We collect only the minimum necessary information required to process component orders, deliver packages across India, and provide technical assistance.
+              SentinelAI Solutions Pvt Ltd (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) values your privacy. We collect only the minimum necessary information required to process component orders, deliver packages across India, and provide technical assistance.
             </p>
           </section>
 
