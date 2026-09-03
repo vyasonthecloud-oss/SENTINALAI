@@ -4,7 +4,7 @@ import { HelpCircle, ChevronDown } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions | Sentinel AI Store',
-  description: 'Find answers to common questions about electronic components, Razorpay payment methods, shipping, and datasheets.',
+  description: 'Find answers to common questions about electronic components, Razorpay and PayU payment methods, shipping, and datasheets.',
 };
 
 export default function FAQPage() {
@@ -15,7 +15,7 @@ export default function FAQPage() {
     },
     {
       q: 'What payment methods do you accept?',
-      a: 'We process payments securely via Razorpay supporting Credit/Debit cards, UPI (GPay, PhonePe, Paytm), Net Banking, and major digital wallets.',
+      a: 'We process payments securely via Razorpay and PayU, supporting Credit/Debit cards, UPI (GPay, PhonePe, Paytm), Net Banking, and major digital wallets.',
     },
     {
       q: 'How long does shipping take across India?',

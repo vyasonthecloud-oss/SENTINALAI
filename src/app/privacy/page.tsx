@@ -38,7 +38,7 @@ export default function PrivacyPage() {
             </h2>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed pl-2">
               <li><strong className="text-foreground">Order Information:</strong> Name, shipping address, email address, and phone number for delivery updates.</li>
-              <li><strong className="text-foreground">Payment Security:</strong> All card, UPI, and net-banking credentials are processed directly through Razorpay&apos;s PCI-DSS compliant checkout. We never store or log your card numbers or UPI PINs on our servers.</li>
+              <li><strong className="text-foreground">Payment Security:</strong> All card, UPI, and net-banking credentials are processed directly through Razorpay&apos;s or PayU&apos;s PCI-DSS compliant checkout gateways. We never store or log your card numbers or UPI PINs on our servers.</li>
               <li><strong className="text-foreground">Technical Analytics:</strong> Anonymized IP addresses and device browser types for security logging and rate-limiting protection.</li>
             </ul>
           </section>

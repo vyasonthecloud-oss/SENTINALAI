@@ -36,18 +36,18 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(), payment=(self "https://checkout.razorpay.com")',
+            value: 'camera=(), microphone=(), geolocation=(), payment=(self "https://checkout.razorpay.com" "https://secure.payu.in" "https://test.payu.in")',
           },
           {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://secure.payu.in https://test.payu.in",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https:",
-              "frame-src 'self' https://checkout.razorpay.com https://api.razorpay.com",
-              "connect-src 'self' ws: wss: http: https: https://api.razorpay.com https://lumberjack.razorpay.com",
+              "frame-src 'self' https://checkout.razorpay.com https://api.razorpay.com https://secure.payu.in https://test.payu.in",
+              "connect-src 'self' ws: wss: http: https: https://api.razorpay.com https://lumberjack.razorpay.com https://secure.payu.in https://test.payu.in",
             ].join('; '),
           },
         ],

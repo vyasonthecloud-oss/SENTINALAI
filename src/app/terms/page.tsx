@@ -54,7 +54,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">5. Privacy</h2>
             <p className="leading-relaxed">
-              Your privacy is critically important to us. We do not sell your personal information. Payment details are processed securely through Razorpay and are never stored on our servers.
+              Your privacy is critically important to us. We do not sell your personal information. Payment details are processed securely through Razorpay or PayU and are never stored on our servers.
             </p>
           </section>
 
