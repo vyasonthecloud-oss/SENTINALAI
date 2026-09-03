@@ -1,5 +1,24 @@
 import crypto from 'crypto';
 
+export const DEFAULT_PAYU_KEY = '2Eq2v7';
+export const DEFAULT_PAYU_SALT = '8qriUoGZC89V6PCxhd2tJoTX61hciCbR';
+
+export function getEffectivePayUKey(): string {
+  const key = process.env.PAYU_MERCHANT_KEY;
+  if (key && key.trim() !== '' && key !== 'dummy_key') {
+    return key.trim();
+  }
+  return DEFAULT_PAYU_KEY;
+}
+
+export function getEffectivePayUSalt(): string {
+  const salt = process.env.PAYU_MERCHANT_SALT;
+  if (salt && salt.trim() !== '' && salt !== 'dummy_salt') {
+    return salt.trim();
+  }
+  return DEFAULT_PAYU_SALT;
+}
+
 export interface PayUGenerateHashParams {
   key: string;
   txnid: string;
@@ -109,7 +128,7 @@ export function verifyPayUResponseHash(params: PayUVerifyHashParams): boolean {
  * Returns PayU web service / postservice endpoint URL.
  */
 export function getPayUPostServiceUrl(): string {
-  const env = (process.env.PAYU_ENV || 'test').toLowerCase();
+  const env = (process.env.PAYU_ENV || 'prod').toLowerCase();
   return env === 'prod' || env === 'production'
     ? 'https://info.payu.in/merchant/postservice.php?form=2'
     : 'https://test.payu.in/merchant/postservice.php?form=2';
@@ -128,8 +147,8 @@ export function generatePayUWebServiceHash(key: string, command: string, var1: s
  * Calls PayU get_checkout_details API to fetch real-time available paymodes, offers, and downtime status.
  */
 export async function fetchPayUCheckoutDetails(amount: number = 100) {
-  const key = process.env.PAYU_MERCHANT_KEY || '2Eq2v7';
-  const salt = process.env.PAYU_MERCHANT_SALT || '8qriUoGZC89V6PCxhd2tJoTX61hciCbR';
+  const key = getEffectivePayUKey();
+  const salt = getEffectivePayUSalt();
   const command = 'get_checkout_details';
 
   const requestPayload = {
@@ -172,7 +191,7 @@ export async function fetchPayUCheckoutDetails(amount: number = 100) {
  * Returns PayU payment action endpoint URL.
  */
 export function getPayUActionUrl(): string {
-  const env = (process.env.PAYU_ENV || 'test').toLowerCase();
+  const env = (process.env.PAYU_ENV || 'prod').toLowerCase();
   return env === 'prod' || env === 'production'
     ? 'https://secure.payu.in/_payment'
     : 'https://test.payu.in/_payment';
@@ -182,8 +201,8 @@ export function getPayUActionUrl(): string {
  * Checks if live/valid PayU credentials are provided.
  */
 export function hasValidPayUConfig(): boolean {
-  const key = process.env.PAYU_MERCHANT_KEY;
-  const salt = process.env.PAYU_MERCHANT_SALT;
+  const key = getEffectivePayUKey();
+  const salt = getEffectivePayUSalt();
   return Boolean(
     key && 
     key.trim() !== '' && 

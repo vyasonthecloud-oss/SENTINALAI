@@ -2,7 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { OrderStatus, PaymentStatus } from '@/types/database';
 import { getAuthenticatedUser } from '@/lib/auth';
-import { generatePayURequestHash, getPayUActionUrl, hasValidPayUConfig } from '@/lib/payu';
+import { generatePayURequestHash, getPayUActionUrl, getEffectivePayUKey, getEffectivePayUSalt } from '@/lib/payu';
+
+function resolveAppUrl(req: NextRequest): string {
+  const envUrl = process.env.NEXT_PUBLIC_APP_URL;
+  if (envUrl && !envUrl.includes('localhost')) {
+    return envUrl.replace(/\/$/, '');
+  }
+  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
+  const proto = req.headers.get('x-forwarded-proto') || 'https';
+  if (host && !host.includes('localhost')) {
+    return `${proto}://${host}`;
+  }
+  return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:3000';
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -105,17 +118,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const isProduction = process.env.NODE_ENV === 'production';
-    const hasKeys = hasValidPayUConfig();
-
-    if (isProduction && !hasKeys) {
-      console.error('Fatal: PayU credentials missing in production environment.');
-      return NextResponse.json(
-        { error: 'PayU gateway configuration error. Please contact store support.' },
-        { status: 500 }
-      );
-    }
-
     // Generate unique transaction ID (alphanumeric, max 30 chars for PayU)
     const txnid = `tx_${order.id.replace(/-/g, '').slice(0, 16)}_${Date.now().toString().slice(-6)}`;
 
@@ -123,23 +125,13 @@ export async function POST(req: NextRequest) {
     await prisma.order.update({
       where: { id: order.id },
       data: {
-        razorpayOrderId: txnid, // reusing primary external order reference field
+        razorpayOrderId: txnid,
       },
     });
 
-    // Check if simulation mode (in development without credentials)
-    if (!hasKeys) {
-      return NextResponse.json({
-        simulated: true,
-        orderId: order.id,
-        txnid: txnid,
-        amount: calculatedTotal,
-      });
-    }
-
-    const merchantKey = process.env.PAYU_MERCHANT_KEY!;
-    const merchantSalt = process.env.PAYU_MERCHANT_SALT!;
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const merchantKey = getEffectivePayUKey();
+    const merchantSalt = getEffectivePayUSalt();
+    const appUrl = resolveAppUrl(req);
     const surl = `${appUrl}/api/payu/response`;
     const furl = `${appUrl}/api/payu/response`;
     const formattedAmount = calculatedTotal.toFixed(2);

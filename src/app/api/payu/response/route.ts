@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { confirmOrderPayment, failOrderPayment } from '@/lib/paymentProcessor';
-import { verifyPayUResponseHash, hasValidPayUConfig } from '@/lib/payu';
+import { verifyPayUResponseHash, getEffectivePayUSalt } from '@/lib/payu';
+
+function resolveAppUrl(req: NextRequest): string {
+  const envUrl = process.env.NEXT_PUBLIC_APP_URL;
+  if (envUrl && !envUrl.includes('localhost')) {
+    return envUrl.replace(/\/$/, '');
+  }
+  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
+  const proto = req.headers.get('x-forwarded-proto') || 'https';
+  if (host && !host.includes('localhost')) {
+    return `${proto}://${host}`;
+  }
+  return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:3000';
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,18 +48,17 @@ export async function POST(req: NextRequest) {
       error_Message,
     } = params;
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = resolveAppUrl(req);
 
     if (!orderId && !txnid) {
       return NextResponse.json({ error: 'Missing order reference' }, { status: 400 });
     }
 
     const isProduction = process.env.NODE_ENV === 'production';
-    const hasKeys = hasValidPayUConfig();
-    const merchantSalt = process.env.PAYU_MERCHANT_SALT || 'dummy_salt';
+    const merchantSalt = getEffectivePayUSalt();
 
     // Check if simulation mode in non-production
-    const isSimulated = !isProduction && (!hasKeys || String(params.simulated) === 'true');
+    const isSimulated = !isProduction && String(params.simulated) === 'true';
 
     let isHashValid = isSimulated;
 
@@ -82,7 +94,6 @@ export async function POST(req: NextRequest) {
 
       const redirectUrl = `${appUrl}/orders/${orderId || txnid}?payment=success`;
 
-      // Return HTML auto-redirect for seamless cross-domain POST navigation
       return new NextResponse(
         `<!DOCTYPE html>
         <html>
@@ -102,7 +113,6 @@ export async function POST(req: NextRequest) {
         }
       );
     } else {
-      // Record failure state
       await failOrderPayment({
         orderId: orderId,
         razorpayOrderId: txnid,
@@ -132,7 +142,7 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error('Error handling PayU response callback:', error instanceof Error ? error.message : 'Unknown error');
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = resolveAppUrl(req);
     return NextResponse.redirect(`${appUrl}/checkout?error=payu_processing_failed`, 303);
   }
 }
