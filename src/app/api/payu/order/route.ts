@@ -5,16 +5,23 @@ import { getAuthenticatedUser } from '@/lib/auth';
 import { generatePayURequestHash, getPayUActionUrl, getEffectivePayUKey, getEffectivePayUSalt } from '@/lib/payu';
 
 function resolveAppUrl(req: NextRequest): string {
+  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
+  const proto = req.headers.get('x-forwarded-proto') || 'https';
+  if (host && !host.includes('localhost')) {
+    return `${proto}://${host}`.replace(/\/$/, '');
+  }
+  const origin = req.nextUrl?.origin;
+  if (origin && !origin.includes('localhost')) {
+    return origin.replace(/\/$/, '');
+  }
   const envUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (envUrl && !envUrl.includes('localhost')) {
     return envUrl.replace(/\/$/, '');
   }
-  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
-  const proto = req.headers.get('x-forwarded-proto') || 'https';
-  if (host && !host.includes('localhost')) {
-    return `${proto}://${host}`;
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://www.sentinalai.store';
   }
-  return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:3000';
+  return 'http://localhost:3000';
 }
 
 export async function POST(req: NextRequest) {

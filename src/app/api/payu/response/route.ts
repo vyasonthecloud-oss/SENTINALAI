@@ -1,18 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 import { confirmOrderPayment, failOrderPayment } from '@/lib/paymentProcessor';
 import { verifyPayUResponseHash, getEffectivePayUSalt } from '@/lib/payu';
 
 function resolveAppUrl(req: NextRequest): string {
+  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
+  const proto = req.headers.get('x-forwarded-proto') || 'https';
+  if (host && !host.includes('localhost')) {
+    return `${proto}://${host}`.replace(/\/$/, '');
+  }
+  const origin = req.nextUrl?.origin;
+  if (origin && !origin.includes('localhost')) {
+    return origin.replace(/\/$/, '');
+  }
   const envUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (envUrl && !envUrl.includes('localhost')) {
     return envUrl.replace(/\/$/, '');
   }
-  const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
-  const proto = req.headers.get('x-forwarded-proto') || 'https';
-  if (host && !host.includes('localhost')) {
-    return `${proto}://${host}`;
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://www.sentinalai.store';
   }
-  return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:3000';
+  return 'http://localhost:3000';
 }
 
 export async function POST(req: NextRequest) {
@@ -51,9 +59,21 @@ export async function POST(req: NextRequest) {
     const appUrl = resolveAppUrl(req);
 
     if (!orderId && !txnid) {
-      return NextResponse.json({ error: 'Missing order reference' }, { status: 400 });
+      return NextResponse.redirect(`${appUrl}/checkout?error=missing_order`, 303);
     }
 
+    // Locate the order in the database
+    const existingOrder = await prisma.order.findFirst({
+      where: {
+        OR: [
+          orderId ? { id: orderId } : undefined,
+          txnid ? { razorpayOrderId: txnid } : undefined,
+          txnid ? { id: txnid } : undefined,
+        ].filter(Boolean) as Array<{ id?: string; razorpayOrderId?: string }>,
+      },
+    });
+
+    const targetOrderId = existingOrder ? existingOrder.id : (orderId || txnid);
     const isProduction = process.env.NODE_ENV === 'production';
     const merchantSalt = getEffectivePayUSalt();
 
@@ -86,59 +106,23 @@ export async function POST(req: NextRequest) {
 
     if (isSuccess) {
       await confirmOrderPayment({
-        orderId: orderId,
+        orderId: targetOrderId,
         razorpayOrderId: txnid,
         razorpayPaymentId: mihpayid || `payu_${Date.now()}`,
         razorpaySignature: hash || 'payu_verified_hash',
       });
 
-      const redirectUrl = `${appUrl}/orders/${orderId || txnid}?payment=success`;
-
-      return new NextResponse(
-        `<!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0;url=${redirectUrl}">
-            <title>Payment Successful - Redirecting...</title>
-          </head>
-          <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
-            <h2>Payment Successful!</h2>
-            <p>Redirecting you to your order summary...</p>
-            <script>window.location.href = "${redirectUrl}";</script>
-          </body>
-        </html>`,
-        {
-          headers: { 'Content-Type': 'text/html; charset=utf-8' },
-        }
-      );
+      const redirectUrl = `${appUrl}/orders/${targetOrderId}?payment=success`;
+      return NextResponse.redirect(redirectUrl, 303);
     } else {
       await failOrderPayment({
-        orderId: orderId,
+        orderId: targetOrderId,
         razorpayOrderId: txnid,
         reason: error_Message || (isHashValid ? 'PayU reported transaction failure' : 'Hash signature mismatch'),
       });
 
-      const redirectUrl = `${appUrl}/orders/${orderId || txnid}?payment=failed`;
-
-      return new NextResponse(
-        `<!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0;url=${redirectUrl}">
-            <title>Payment Failed - Redirecting...</title>
-          </head>
-          <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
-            <h2>Payment Verification Failed</h2>
-            <p>Redirecting you back to your order...</p>
-            <script>window.location.href = "${redirectUrl}";</script>
-          </body>
-        </html>`,
-        {
-          headers: { 'Content-Type': 'text/html; charset=utf-8' },
-        }
-      );
+      const redirectUrl = `${appUrl}/orders/${targetOrderId}?payment=failed`;
+      return NextResponse.redirect(redirectUrl, 303);
     }
   } catch (error) {
     console.error('Error handling PayU response callback:', error instanceof Error ? error.message : 'Unknown error');
@@ -164,4 +148,3 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${appUrl}/checkout`, 303);
   }
 }
-
